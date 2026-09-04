@@ -13,6 +13,8 @@
 <meta name="twitter:title" content="WIR HEIRATEN | 31. Oktober 2026 | Standesamt | Hochzeitparty">
 <meta name="twitter:description" content="WIR HEIRATEN | 31. Oktober 2026 | Standesamt | Hochzeitparty">
 <meta name="twitter:image" content="social-preview.jpg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.svg">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Didact+Gothic&display=swap');
 
@@ -446,15 +448,74 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .form-shell .form-submit-status{display:none;margin:0 0 24px;padding:16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;line-height:1.45}
 .form-shell .sib-form-block__button[disabled]{opacity:.65;cursor:wait}
 .form-shell .progress-indicator__icon{display:none!important}
-/* Brevo honeypot field: must remain invisible when Brevo's stylesheet is not loaded. */
-.form-shell input.input--hidden{
+
+/* Hide Brevo honeypot field completely */
+.form-shell input[name="email_address_check"]{
   display:none!important;
+  width:0!important;
+  height:0!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
   position:absolute!important;
   left:-9999px!important;
-  width:1px!important;
-  height:1px!important;
-  opacity:0!important;
-  pointer-events:none!important;
+}
+
+/* Final RSVP form layout */
+.form-shell #sib-container{
+  max-width:none!important;width:100%!important;box-sizing:border-box!important
+}
+.form-shell #sib-form{width:100%!important}
+.form-shell .sib-form-block{padding:8px 0!important}
+.form-shell .input{box-sizing:border-box!important;width:100%!important}
+.form-shell .entry__label{
+  display:block!important;margin:0 0 8px!important;
+  font-family:var(--sans)!important;font-size:15px!important;
+  font-weight:400!important;letter-spacing:0!important;color:var(--ink)!important
+}
+.form-shell input.input,.form-shell select.input{
+  width:100%!important;min-height:50px!important;padding:12px 14px!important;
+  border:1px solid var(--line)!important;border-radius:0!important;
+  background:#fff!important;color:var(--ink)!important;
+  font-family:var(--sans)!important;font-size:16px!important
+}
+.form-shell .whatsapp-row{
+  display:grid!important;grid-template-columns:140px minmax(0,1fr)!important;
+  gap:8px!important;width:100%!important;align-items:stretch!important
+}
+.form-shell .whatsapp-row>.entry__field{width:auto!important;min-width:0!important}
+.form-shell .whatsapp-row select.input,.form-shell .whatsapp-row input.input{
+  display:block!important;width:100%!important;min-width:0!important;box-sizing:border-box!important
+}
+.form-shell .sib-sms-tooltip{display:none!important}
+.form-shell .whatsapp-help{
+  display:block!important;margin-top:8px!important;font-family:var(--sans)!important;
+  font-size:11px!important;line-height:1.45!important;color:var(--muted)!important
+}
+.form-shell .entry__choices{display:block!important;width:100%!important}
+.form-shell .entry__choice{margin:9px 0!important}
+.form-shell .entry__choice label{
+  display:flex!important;align-items:flex-start!important;gap:10px!important;cursor:pointer!important
+}
+.form-shell .entry__choice input.input_replaced{
+  flex:0 0 auto!important;width:17px!important;height:17px!important;margin:2px 0 0!important;
+  accent-color:var(--ink)!important
+}
+.form-shell .entry__choice .radio-button{display:none!important}
+.form-shell .sib-divider-form-block{border-top:1px solid var(--line);padding:0!important;margin:5px 0 30px!important}
+.form-shell .sib-form-block:has(.sib-form-block__button){margin-top:30px!important}
+.form-shell .sib-form-block__button{
+  width:100%!important;min-height:54px!important;border:0!important;border-radius:0!important;
+  background:var(--ink)!important;color:#fff!important;font-family:var(--sans)!important;
+  font-size:12px!important;font-weight:700!important;letter-spacing:.18em!important;
+  text-align:center!important;padding:15px 18px!important;cursor:pointer
+}
+.form-shell .entry__specification{
+  display:block!important;margin-top:7px!important;font-family:var(--sans)!important;
+  font-size:11px!important;line-height:1.45!important;color:var(--muted)!important
+}
+@media(max-width:760px){
+  .form-shell .whatsapp-row{grid-template-columns:108px minmax(0,1fr)!important;gap:6px!important}
 }
 </style>
 <script>
@@ -472,6 +533,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
     var status=document.createElement('div');
     status.className='form-submit-status';
+    status.id='danke';
     status.setAttribute('role','status');
     status.setAttribute('aria-live','polite');
     form.parentNode.insertBefore(status,form);
@@ -492,6 +554,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       if(!waiting) return;
       window.setTimeout(function(){
         status.textContent='Danke! Wir haben deine Rückmeldung erhalten. Wir sehen uns bei unserer Hochzeitsparty am 31.10.2026.';
+        status.scrollIntoView({behavior:'smooth', block:'center'});
         if(button){button.disabled=false;button.textContent='ERNEUT ANMELDEN';}
         form.reset();
         waiting=false;
@@ -1748,7 +1811,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
                   </div>
                   <div class="entry__field">
                     <input type="tel" class="input" id="WHATSAPP" name="WHATSAPP" autocomplete="tel-national"
-                           inputmode="tel" placeholder="Telefonnummer" aria-describedby="whatsapp-help" />
+                           inputmode="tel" placeholder="WhatsApp-Nummer" aria-describedby="whatsapp-help" />
                   </div>
                 </div>
 
@@ -1981,7 +2044,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
 
               <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#8390A4; text-align: left ">
-                Trage hier gerne ein, was für einen Salat, Kuchen, Nachspeise oder anderes kulinarisches Highlight du gerne mitringst.
+                Trage hier gerne ein, was für einen Salat, Kuchen, Nachspeise oder anderes kulinarisches Highlight du gerne mitbringst.
               </label>
 
             </div>
@@ -2002,7 +2065,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
               <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
                 <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
               </svg>
-              ANMELDEN
+              Meine Rückmeldung an euch!
             </button>
 
 
