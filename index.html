@@ -13,7 +13,6 @@
 <meta name="twitter:title" content="WIR HEIRATEN | 31. Oktober 2026 | Standesamt | Hochzeitparty">
 <meta name="twitter:description" content="WIR HEIRATEN | 31. Oktober 2026 | Standesamt | Hochzeitparty">
 <meta name="twitter:image" content="social-preview.jpg">
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Didact+Gothic&display=swap');
 
@@ -387,7 +386,122 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .form-shell .sib-form-block{padding:8px 0!important}
 .form-shell .input{box-sizing:border-box!important;width:100%!important}
 .form-shell .sib-form-message-panel{max-width:none!important}
-</style></head>
+
+/* WhatsApp: clean two-column layout, help text below */
+.form-shell .whatsapp-row{
+  display:grid!important;
+  grid-template-columns:150px minmax(0,1fr)!important;
+  gap:8px!important;
+  width:100%!important;
+  align-items:stretch!important;
+}
+.form-shell .whatsapp-row .entry__field{
+  width:auto!important;
+  min-width:0!important;
+}
+.form-shell .whatsapp-row select.input,
+.form-shell .whatsapp-row input.input{
+  width:100%!important;
+  min-width:0!important;
+}
+.form-shell .whatsapp-help{
+  margin-top:9px!important;
+  font-family:var(--sans)!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+  color:var(--muted)!important;
+}
+.form-shell .sib-sms-tooltip{display:none!important}
+.form-shell .entry__choices{display:block!important;width:100%!important}
+.form-shell .entry__choice label{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:10px!important;
+  cursor:pointer!important;
+}
+.form-shell .entry__choice input.input_replaced{
+  flex:0 0 auto!important;
+  width:17px!important;
+  height:17px!important;
+  margin:2px 0 0!important;
+  accent-color:var(--ink)!important;
+}
+.form-shell .entry__choice .radio-button{display:none!important}
+@media(max-width:760px){
+  .form-shell .whatsapp-row{
+    grid-template-columns:112px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+}
+/* Brevo form: local styling; no Brevo CSS/JS dependency */
+.form-shell textarea.input{
+  box-sizing:border-box!important;width:100%!important;min-height:120px!important;height:auto!important;
+  padding:12px 14px!important;border:1px solid var(--line)!important;border-radius:0!important;
+  background:#fff!important;color:var(--ink)!important;font-family:var(--sans)!important;font-size:15px!important;
+  line-height:1.45!important;resize:vertical!important;
+}
+.form-shell textarea.input::placeholder{color:#a8a8a4!important;opacity:1!important}
+.form-shell .sib-form-message-panel{display:none;max-width:none!important;margin:0 0 24px!important;padding:14px 16px!important;box-sizing:border-box!important}
+.form-shell .sib-form-message-panel__text{font-family:var(--sans)!important;font-size:14px!important;line-height:1.45!important}
+.form-shell .form-submit-status{display:none;margin:0 0 24px;padding:16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;line-height:1.45}
+.form-shell .sib-form-block__button[disabled]{opacity:.65;cursor:wait}
+.form-shell .progress-indicator__icon{display:none!important}
+/* Brevo honeypot field: must remain invisible when Brevo's stylesheet is not loaded. */
+.form-shell input.input--hidden{
+  display:none!important;
+  position:absolute!important;
+  left:-9999px!important;
+  width:1px!important;
+  height:1px!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+</style>
+<script>
+(function(){
+  function initBrevoForm(){
+    var form=document.getElementById('sib-form');
+    if(!form || form.dataset.localHandler==='1') return;
+    form.dataset.localHandler='1';
+
+    var frame=document.createElement('iframe');
+    frame.name='brevo-submit-frame';
+    frame.title='Formularübermittlung';
+    frame.style.cssText='position:absolute;width:1px;height:1px;border:0;opacity:0;pointer-events:none;';
+    document.body.appendChild(frame);
+
+    var status=document.createElement('div');
+    status.className='form-submit-status';
+    status.setAttribute('role','status');
+    status.setAttribute('aria-live','polite');
+    form.parentNode.insertBefore(status,form);
+
+    var button=form.querySelector('button[type="submit"]');
+    var waiting=false;
+
+    form.addEventListener('submit',function(){
+      if(waiting) return;
+      waiting=true;
+      form.target='brevo-submit-frame';
+      if(button){button.disabled=true;button.textContent='WIRD GESENDET …';}
+      status.style.display='block';
+      status.textContent='Einen Moment bitte …';
+    });
+
+    frame.addEventListener('load',function(){
+      if(!waiting) return;
+      window.setTimeout(function(){
+        status.textContent='Danke! Wir haben deine Rückmeldung erhalten. Wir sehen uns bei unserer Hochzeitsparty am 31.10.2026.';
+        if(button){button.disabled=false;button.textContent='ERNEUT ANMELDEN';}
+        form.reset();
+        waiting=false;
+      },500);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initBrevoForm);
+  else initBrevoForm();
+})();
+</script></head>
 <body>
 <header class="site-nav">
   <div class="nav-mark">J + B</div>
@@ -576,7 +690,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
                 <div class="entry__field">
 
-                  <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="EMAIL" data-required="true" required />
+                  <input class="input " type="email" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="EMAIL" data-required="true" required />
 
                 </div>
 
@@ -603,26 +717,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
         <div style="padding: 8px 0;">
 
-
-
           <div class="sib-sms-field sib-form-block">
             <div class="form__entry entry_block">
-              <div class="form__label-row ">
+              <div class="form__label-row">
+                <label class="entry__label" for="WHATSAPP">Unter welcher Nummer bist du erreichbar?</label>
 
-
-                <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" for="WHATSAPP">Unter welcher Nummer bist du erreichbar?</label>
-
-
-
-
-
-
-
-
-                <div class="sib-sms-input-wrapper" style="direction:ltr">
-                  <div class="sib-sms-input" data-placeholder="WHATSAPP" data-country-code="DE" data-value="" data-attributename="WHATSAPP">
-                    <div class="entry__field">
-                      <select class="input" name="WHATSAPP__COUNTRY_CODE">
+                <div class="whatsapp-row" dir="ltr">
+                  <div class="entry__field">
+                    <select class="input" name="WHATSAPP__COUNTRY_CODE" aria-label="Ländervorwahl">
+                      
 
                         <option value="+93">
                           +93 AF
@@ -968,7 +1071,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
                           +995 GE
                         </option>
 
-                        <option value="+49">
+                        <option value="+49" selected>
                           +49 DE
                         </option>
 
@@ -1640,44 +1743,67 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
                           +263 ZW
                         </option>
 
-                      </select>
-                    </div>
-                    <div class="entry__field" style="width: 100%">
-                      <input type="tel" type="text" class="input" id="WHATSAPP" name="WHATSAPP" autocomplete="off" placeholder="WHATSAPP" />
-                    </div>
+                      
+                    </select>
                   </div>
-                  <div class="sib-sms-tooltip">
-                    <div class="sib-sms-tooltip__box">
-                      Das WHATSAPP-Feld muss zwischen 6 und 19 Ziffern enthalten und die Ländervorwahl ohne +/0 (z. B. 49xxxxxxxxxx für Deutschland) enthalten.
-                    </div>
-                    <span class="sib-sms-tooltip__icon">?</span>
+                  <div class="entry__field">
+                    <input type="tel" class="input" id="WHATSAPP" name="WHATSAPP" autocomplete="tel-national"
+                           inputmode="tel" placeholder="Telefonnummer" aria-describedby="whatsapp-help" />
                   </div>
                 </div>
 
-
+                <div id="whatsapp-help" class="whatsapp-help">
+                  Bitte gib deine WhatsApp-Nummer an, unter der wir dich erreichen können.
+                  Die Ländervorwahl wird separat ausgewählt.
+                </div>
               </div>
 
-              <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;">
-              </label>
-
-              <label class="entry__error entry__error--secondary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;">
-              </label>
-
-
-
-              <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#8390A4; text-align: left ">
-                Bitte gib deine WhatsApp-Nummer an unter der wir dich erreichen können.
-              </label>
-
+              <label class="entry__error entry__error--primary"></label>
+              <label class="entry__error entry__error--secondary"></label>
             </div>
           </div>
 
-
-
-
         </div>
 
+        <div style="padding: 8px 0;">
 
+          <div class="sib-radiobutton-group sib-form-block" data-required="true">
+            <div class="form__entry entry_mcq">
+              <div class="form__label-row">
+                <label class="entry__label" for="ABSAGE" data-required="*">Können wir auf dich zählen?</label>
+
+                <div class="entry__choices">
+                  <div class="entry__choice">
+                    <label>
+                      <input type="radio" name="ABSAGE" class="input_replaced" value="1" required>
+                      <span class="radio-button" aria-hidden="true"></span>
+                      <span>Ich bin auf jeden Fall dabei.</span>
+                    </label>
+                  </div>
+
+                  <div class="entry__choice">
+                    <label>
+                      <input type="radio" name="ABSAGE" class="input_replaced" value="2" required>
+                      <span class="radio-button" aria-hidden="true"></span>
+                      <span>Schaffe es nur vielleicht.</span>
+                    </label>
+                  </div>
+
+                  <div class="entry__choice">
+                    <label>
+                      <input type="radio" name="ABSAGE" class="input_replaced" value="3" required>
+                      <span class="radio-button" aria-hidden="true"></span>
+                      <span>Schaffe es leider nicht.</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <label class="entry__error entry__error--primary"></label>
+            </div>
+          </div>
+
+        </div>
 
         <div style="padding: 8px 0;">
 
@@ -1838,15 +1964,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
               <div class="form__label-row ">
 
 
-                <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" for="KOMMENTAR" data-required="*">Was möchtest du uns noch als Info mitgeben?</label>
+                <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" for="KOMMENTAR">Was möchtest du uns noch als Info mitgeben?</label>
 
 
 
 
                 <div class="entry__field">
-
-                  <input class="input " maxlength="200" type="text" id="KOMMENTAR" name="KOMMENTAR" autocomplete="off" placeholder="Platz für ganz viel Liebe" data-required="true" required />
-
+                  <textarea class="input" maxlength="500" id="KOMMENTAR" name="KOMMENTAR" autocomplete="off" placeholder="Platz für ganz viel Liebe"></textarea>
                 </div>
 
               </div>
@@ -1911,18 +2035,5 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
 <footer class="footer"><span>Josy und Benny</span><span>31.10.2026</span></footer>
 
-<script>
-window.REQUIRED_CODE_ERROR_MESSAGE='Wähle bitte einen Ländervorwahl aus.';
-window.LOCALE='de';
-window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-window.REQUIRED_ERROR_MESSAGE="Dieses Feld darf nicht leer sein.";
-window.GENERIC_INVALID_MESSAGE="Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-window.INVALID_NUMBER="Die eingegebenen Informationen sind nicht gültig. Bitte überprüfe das Feldformat und versuche es erneut.";
-window.INVALID_DATE="Bitte gib ein gültiges Datum ein";
-window.REQUIRED_MULTISELECT_MESSAGE='Wähle bitte mindestens eine Option aus';
-window.translation={common:{selectedList:'{quantity} Liste ausgewählt',selectedLists:'{quantity} Listen ausgewählt',selectedOption:'{quantity} ausgewählt',selectedOptions:'{quantity} ausgewählt'}};
-var AUTOHIDE=Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
 </html>

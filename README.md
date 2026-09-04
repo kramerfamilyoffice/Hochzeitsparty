@@ -9,3 +9,7 @@ V12 — ausschließlich Formular-Layout angepasst.
 - WhatsApp-Feld kompakt auf Mobile
 - bestehende Formularfelder, Brevo-Action, Feldnamen und Submit-JavaScript unverändert
 - restliche Website unverändert
+
+
+## Formular-Update
+Die Brevo-Einbindung wurde auf eine robuste HTML-POST-Variante ohne die externen Brevo-Styles/JS-Ladeabhängigkeiten umgestellt. Das Kommentar-Feld ist optional und mehrzeilig; E-Mail ist ein echtes E-Mail-Feld.
