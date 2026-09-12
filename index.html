@@ -1802,6 +1802,36 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   syncSuccess();
 })();
 </script>
+<script>
+/* V20 — submit the RSVP in-place; never navigate to the provider's JSON response. */
+(function(){
+  var form=document.getElementById('sib-form');
+  var shell=document.querySelector('.form-shell');
+  var success=document.getElementById('success-message');
+  var error=document.getElementById('error-message');
+  if(!form || !shell || !success) return;
+  form.addEventListener('submit', function(event){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if(!form.reportValidity()) return;
+    var button=form.querySelector('button[type="submit"]');
+    if(button){ button.disabled=true; button.setAttribute('aria-busy','true'); }
+    var data=new FormData(form);
+    fetch(form.action, {method:'POST', body:data, mode:'no-cors', credentials:'omit'})
+      .then(function(){
+        shell.classList.add('form-submitted');
+        success.style.display='block';
+        success.setAttribute('aria-hidden','false');
+        if(error) error.style.display='none';
+        success.scrollIntoView({behavior:'smooth', block:'center'});
+      })
+      .catch(function(){
+        if(button){ button.disabled=false; button.removeAttribute('aria-busy'); }
+        if(error){ error.style.display='block'; }
+      });
+  }, true);
+})();
+</script>
 <script defer="" src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
 </html>
