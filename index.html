@@ -610,6 +610,50 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   .form-shell .whatsapp-row{grid-template-columns:108px minmax(0,1fr)!important;gap:6px!important}
 }
 </style>
+
+<style>
+/* V18 — RSVP choices: keep the native radios functional and make them visibly selectable. */
+.form-shell .sib-radiobutton-group .entry__choice label{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:46px!important;
+  padding:10px 14px!important;
+  border:1px solid var(--line)!important;
+  background:#fff!important;
+  color:var(--ink)!important;
+  cursor:pointer!important;
+  box-sizing:border-box!important;
+}
+.form-shell .sib-radiobutton-group .entry__choice label:has(input:checked){
+  border-color:var(--ink)!important;
+  background:#f4f4f1!important;
+}
+.form-shell .sib-radiobutton-group input.input_replaced{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:static!important;
+  flex:0 0 17px!important;
+  width:17px!important;
+  height:17px!important;
+  min-height:17px!important;
+  margin:0!important;
+  padding:0!important;
+  appearance:auto!important;
+  -webkit-appearance:radio!important;
+  accent-color:var(--ink)!important;
+  pointer-events:auto!important;
+}
+.form-shell .sib-radiobutton-group .entry__choice label span:last-child{
+  width:auto!important;
+  font-family:var(--sans)!important;
+  font-size:16px!important;
+  line-height:1.35!important;
+  color:var(--ink)!important;
+}
+</style>
 </head>
 <body>
 <header class="site-nav">
@@ -1586,7 +1630,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="sib-radiobutton-group sib-form-block" data-required="true">
 <div class="form__entry entry_mcq">
 <div class="form__label-row">
-<label class="entry__label" data-required="*" for="ABSAGE" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;">Können wir auf dich zählen?</label>
+<label class="entry__label" data-required="*" for="ABSAGE_1" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;">Können wir auf dich zählen?</label>
 <div>
 <div class="entry__choice" style="">
 <label for="ABSAGE_1">
