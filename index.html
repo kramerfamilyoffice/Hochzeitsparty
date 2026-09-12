@@ -501,6 +501,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   align-items:flex-start!important;
   gap:10px!important;
   cursor:pointer!important;
+  pointer-events:auto!important;
 }
 .form-shell .entry__choice input.input_replaced{
   flex:0 0 auto!important;
@@ -508,6 +509,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   height:17px!important;
   margin:2px 0 0!important;
   accent-color:var(--ink)!important;
+}
+.form-shell .entry__choice input.input_replaced{
+  display:inline-block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:static!important;
+  appearance:auto!important;
+  -webkit-appearance:radio!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
 }
 .form-shell .entry__choice .radio-button{display:none!important}
 @media(max-width:760px){
@@ -625,7 +636,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="eyebrow">Nach dem Ja</div>
 <h2>Ein großes Ja.<br/>Ein noch größerer Abend.</h2>
 <div class="copy">
-      Die Trauung feiern wir im kleinen Kreis. Danach wird’s größer: Ab 17 Uhr feiern wir im Schützenheim Markt Wald mit euch weiter.
+      Die Trauung feiern wir im kleinen Kreis. Danach wird’s größer: Ab 17 Uhr feiern wir im Schützenheim Markt Wald mit euch.
       Es wird gegessen, angestoßen, Musik gehört, gelacht und getanzt.
       Kein festes Programm, kein großes Tamtam – einfach ein guter Abend.
     </div>
@@ -763,7 +774,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 </div>
 </div>
 </div>
-<input id="EMAIL" name="EMAIL" type="hidden" value="kramerbennyundjosy@gmail.com"/>
+<div style="padding: 8px 0;">
+<div class="sib-input sib-form-block">
+<div class="form__entry entry_block">
+<div class="form__label-row">
+<div class="entry__field">
+<input autocomplete="email" class="input" data-required="true" id="EMAIL" maxlength="200" name="EMAIL" placeholder="E-MAIL ADRESSE" required="" type="email"/>
+</div>
+</div>
+<label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;">
+</label>
+</div>
+</div>
+</div>
 <div style="padding: 8px 0;">
 <div class="sib-sms-field sib-form-block">
 <div class="form__entry entry_block">
@@ -1566,20 +1589,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <label class="entry__label" data-required="*" for="ABSAGE" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;">Können wir auf dich zählen?</label>
 <div>
 <div class="entry__choice" style="">
-<label>
-<input class="input_replaced" name="ABSAGE" required="" type="radio" value="1"/>
+<label for="ABSAGE_1">
+<input class="input_replaced" id="ABSAGE_1" name="ABSAGE" required="" type="radio" value="1"/>
 <span class="radio-button" style="margin-left: "></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Ich bin auf jeden Fall dabei.</span>
 </label>
 </div>
 <div class="entry__choice" style="">
-<label>
-<input class="input_replaced" name="ABSAGE" required="" type="radio" value="2"/>
+<label for="ABSAGE_2">
+<input class="input_replaced" id="ABSAGE_2" name="ABSAGE" required="" type="radio" value="2"/>
 <span class="radio-button" style="margin-left: "></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Schaffe es nur vielleicht.</span>
 </label>
 </div>
 <div class="entry__choice" style="">
-<label>
-<input class="input_replaced" name="ABSAGE" required="" type="radio" value="3"/>
+<label for="ABSAGE_3">
+<input class="input_replaced" id="ABSAGE_3" name="ABSAGE" required="" type="radio" value="3"/>
 <span class="radio-button" style="margin-left: "></span><span style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#3C4858; background-color:transparent;">Schaffe es leider nicht.</span>
 </label>
 </div>
@@ -1664,27 +1687,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
 
 <details class="faq-item">
-<summary>Was soll ich schenken?</summary>
-<div class="faq-answer">
-<p><strong>Deine Zeit, gute Laune und einen unvergesslichen Abend.</strong> Über einen Salat, Kuchen, Dessert oder eine andere Leckerei freuen wir uns auch. Ein klassisches Geschenk erwarten wir nicht – es ist unsere Hochzeitsparty und nicht die „große“ Hochzeit.</p>
-</div>
-</details>
-<details class="faq-item">
 <summary>Keine Kinder ???</summary>
 <div class="faq-answer">
 <p>Wir lieben Kinder und solltet ihr keinen Babysitter haben, dann bringt gerne eure Kids mit. Bitte beachtet nur, dass der Saal und die Musik auf eine Party ausgelegt sind. Vielleicht wird das den Kleinen schnell zu viel. Schreibt uns bitte eine kurze Info, falls ihr mit Kindern kommt.</p>
 </div>
 </details>
 <details class="faq-item">
-<summary>Ihr braucht eine Übernachtungsmöglichkeit?</summary>
+<summary>Wo finde ich eine Übernachtungsmöglichkeit?</summary>
 <div class="faq-answer">
 <p>Schreibt uns dazu gerne. Wir helfen euch ein Hotel oder auch eine private Schlafmöglichkeit zu finden.</p>
-</div>
-</details>
-<details class="faq-item">
-<summary>Ich habe keine E-Mail Adresse für das Formular</summary>
-<div class="faq-answer">
-<p>Kein Problem! Nutzt gerne unsere Mail Adresse. Wir werden keine oder kaum Mails verschicken – das System für das Formular möchte aber eine Mail Adresse haben: <strong>kramerbennyundjosy@gmail.com</strong></p>
 </div>
 </details>
 <details class="faq-item">
@@ -1715,24 +1726,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   window.REQUIRED_MULTISELECT_MESSAGE = 'Wähle bitte mindestens eine Option aus';
   window.translation = { common: { selectedList: '{quantity} Liste ausgewählt', selectedLists: '{quantity} Listen ausgewählt', selectedOption: '{quantity} ausgewählt', selectedOptions: '{quantity} ausgewählt' } };
   var AUTOHIDE = Boolean(1);
-</script>
-<script>
-  // Brevo requires an EMAIL field. Use the couple's Gmail inbox via a unique
-  // plus-address per RSVP, so multiple guests do not overwrite one Brevo contact.
-  (function(){
-    var form=document.getElementById('sib-form');
-    if(!form) return;
-    form.addEventListener('submit',function(){
-      var email=document.getElementById('EMAIL');
-      var first=(document.getElementById('VORNAME')||{}).value||'';
-      var last=(document.getElementById('NACHNAME')||{}).value||'';
-      if(!email) return;
-      var slug=(first+'-'+last).toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-        .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60) || 'gast';
-      email.value='kramerbennyundjosy+'+slug+'-'+Date.now().toString(36)+'@gmail.com';
-    }, false);
-  })();
 </script>
 <script defer="" src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
