@@ -612,6 +612,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 </style>
 
 <style>
+/* V19 — Pflichtfelder sichtbar kennzeichnen und Formular nach Versand ausblenden. */
+.form-shell .entry__label[data-required="*"]::after{
+  content:" *";
+  color:#c62828!important;
+  font-weight:700!important;
+}
+.form-shell.form-submitted #sib-container{display:none!important}
+.form-shell.form-submitted #success-message{display:block!important}
+</style>
+
+<style>
 /* V18 — RSVP choices: keep the native radios functional and make them visibly selectable. */
 .form-shell .sib-radiobutton-group .entry__choice label{
   position:relative!important;
@@ -796,6 +807,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="sib-input sib-form-block">
 <div class="form__entry entry_block">
 <div class="form__label-row">
+<label class="entry__label" data-required="*" for="VORNAME">Vorname</label>
 <div class="entry__field">
 <input autocomplete="off" class="input" data-required="true" id="VORNAME" maxlength="200" name="VORNAME" placeholder="VORNAME" required="" type="text"/>
 </div>
@@ -809,6 +821,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="sib-input sib-form-block">
 <div class="form__entry entry_block">
 <div class="form__label-row">
+<label class="entry__label" data-required="*" for="NACHNAME">Nachname</label>
 <div class="entry__field">
 <input autocomplete="off" class="input" data-required="true" id="NACHNAME" maxlength="200" name="NACHNAME" placeholder="NACHNAME" required="" type="text"/>
 </div>
@@ -822,6 +835,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="sib-input sib-form-block">
 <div class="form__entry entry_block">
 <div class="form__label-row">
+<label class="entry__label" data-required="*" for="EMAIL">E-Mail-Adresse</label>
 <div class="entry__field">
 <input autocomplete="email" class="input" data-required="true" id="EMAIL" maxlength="200" name="EMAIL" placeholder="E-MAIL ADRESSE" required="" type="email"/>
 </div>
@@ -1770,6 +1784,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   window.REQUIRED_MULTISELECT_MESSAGE = 'Wähle bitte mindestens eine Option aus';
   window.translation = { common: { selectedList: '{quantity} Liste ausgewählt', selectedLists: '{quantity} Listen ausgewählt', selectedOption: '{quantity} ausgewählt', selectedOptions: '{quantity} ausgewählt' } };
   var AUTOHIDE = Boolean(1);
+</script>
+<script>
+(function(){
+  var shell=document.querySelector('.form-shell');
+  var success=document.getElementById('success-message');
+  if(!shell || !success) return;
+  function syncSuccess(){
+    var visible=success.style.display==='block' || success.getAttribute('aria-hidden')==='false' || success.classList.contains('sib-form-message-panel--visible');
+    if(visible) shell.classList.add('form-submitted');
+  }
+  new MutationObserver(syncSuccess).observe(success,{attributes:true,attributeFilter:['style','class','aria-hidden']});
+  var form=document.getElementById('sib-form');
+  if(form) form.addEventListener('submit',function(){
+    setTimeout(syncSuccess,1000);
+  });
+  syncSuccess();
+})();
 </script>
 <script defer="" src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
